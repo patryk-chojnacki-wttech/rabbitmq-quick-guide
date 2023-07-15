@@ -1,6 +1,5 @@
-package com.wtt.consumer.service;
+package com.wtt.consumer;
 
-import com.wtt.consumer.model.PairRandomNumbers;
 import com.wtt.consumer.utils.JsonParser;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

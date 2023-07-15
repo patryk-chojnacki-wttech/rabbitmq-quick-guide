@@ -1,4 +1,4 @@
-package com.wtt.consumer.model;
+package com.wtt.consumer;
 
 import java.util.Random;
 import java.util.UUID;

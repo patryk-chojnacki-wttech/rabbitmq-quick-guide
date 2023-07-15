@@ -1,6 +1,5 @@
-package com.wtt.consumer.service;
+package com.wtt.consumer;
 
-import com.wtt.consumer.model.PairRandomNumbers;
 import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
