@@ -52,7 +52,7 @@ public class DirectService {
                     System.out.println("Good bye! The application is terminated");
                     System.exit(0);
                 default:
-                    System.out.println("Invalid input. Please enter a number between 1 and 5.");
+                    System.out.println("Invalid input. Please enter a number between 1 and 4.");
                     break;
             }
         }

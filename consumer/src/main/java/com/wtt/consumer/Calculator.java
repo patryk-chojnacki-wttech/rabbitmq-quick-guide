@@ -23,5 +23,4 @@ class Calculator {
     void multiplication(final PairRandomNumbers pair) {
         System.out.println(pair + " after multiplication = " + Math.multiplyExact(pair.getX(), pair.getY()));
     }
-
 }
