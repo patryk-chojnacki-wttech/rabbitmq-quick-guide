@@ -16,28 +16,28 @@ class RabbitMqListener {
 
     @RabbitListener(queues = "ADD_QUEUE")
     public void listenerForNumbersToAdd(Message message) {
-        PairRandomNumbers pair = JsonParser.mapToObject(new String(message.getBody()), PairRandomNumbers.class);
+        RandomNumberPair pair = JsonParser.mapToObject(new String(message.getBody()), RandomNumberPair.class);
         System.out.println(pair + " provided to Calculator!");
         calculator.add(pair);
     }
 
     @RabbitListener(queues = "SUBTRACT_QUEUE")
     public void listenerForNumbersToSubtract(Message message) {
-        PairRandomNumbers pair = JsonParser.mapToObject(new String(message.getBody()), PairRandomNumbers.class);
+        RandomNumberPair pair = JsonParser.mapToObject(new String(message.getBody()), RandomNumberPair.class);
         System.out.println(pair + " provided to Calculator!");
         calculator.subtract(pair);
     }
 
     @RabbitListener(queues = "DIVISION_QUEUE")
     public void listenerForNumbersToDivision(Message message) {
-        PairRandomNumbers pair = JsonParser.mapToObject(new String(message.getBody()), PairRandomNumbers.class);
+        RandomNumberPair pair = JsonParser.mapToObject(new String(message.getBody()), RandomNumberPair.class);
         System.out.println(pair + " provided to Calculator!");
         calculator.divide(pair);
     }
 
     @RabbitListener(queues = "MULTIPLICATION_QUEUE")
     public void listenerForNumbersToMultiplication(Message message) {
-        PairRandomNumbers pair = JsonParser.mapToObject(new String(message.getBody()), PairRandomNumbers.class);
+        RandomNumberPair pair = JsonParser.mapToObject(new String(message.getBody()), RandomNumberPair.class);
         System.out.println(pair + " provided to Calculator!");
         calculator.multiplication(pair);
     }

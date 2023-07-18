@@ -14,10 +14,10 @@ public class DirectService {
 
 
     private final Scanner scanner;
-    private RabbitTemplate rabbitTemplate;
+    private final RabbitTemplate rabbitTemplate;
 
-    public DirectService(RabbitTemplate rabbitTemplate) {
-        scanner = new Scanner(System.in);
+    public DirectService(Scanner scanner, RabbitTemplate rabbitTemplate) {
+        this.scanner = scanner;
         this.rabbitTemplate = rabbitTemplate;
     }
 
@@ -37,16 +37,16 @@ public class DirectService {
             String userInput = scanner.nextLine();
             switch (userInput.toUpperCase()) {
                 case "1":
-                    sendToAdd(new PairRandomNumbers());
+                    sendToAdd(new RandomNumberPair());
                     break;
                 case "2":
-                    sendToSubtract(new PairRandomNumbers());
+                    sendToSubtract(new RandomNumberPair());
                     break;
                 case "3":
-                    sendToMultiplication(new PairRandomNumbers());
+                    sendToMultiplication(new RandomNumberPair());
                     break;
                 case "4":
-                    sendToDivide(new PairRandomNumbers());
+                    sendToDivide(new RandomNumberPair());
                     break;
                 case "Q":
                     System.out.println("Good bye! The application is terminated");
@@ -60,7 +60,7 @@ public class DirectService {
 
     /**
      * The following method is used to send a pair of random numbers to RabbitMq to perform the add calculation
-     * PairRandomNumbers is a pair of random numbers which is randomly generated in the class constructor
+     * RandomNumberPair is a pair of random numbers which is randomly generated in the class constructor
      * PairNumber is mapped to Json format using JsonParser class
      * The message is sent to RabbitMq using the RabbitTemplate
      * The first parameter is the exchange name, which is the name of the exchange that will handle message
@@ -70,7 +70,7 @@ public class DirectService {
      * The third parameter is the new RabbitMq message which have some metadata and the body of the message
      * The Body of the message is the pair of random numbers in Json format transformed to bytes
      */
-    public void sendToAdd(PairRandomNumbers pairNumbers) {
+    public void sendToAdd(RandomNumberPair pairNumbers) {
         System.out.println(String.format("%s is sent to Calculator Service with routing key: %s to add values.", pairNumbers.toString(), RabbitMqDirectConfiguration.ADD_QUEUE_NAME));
         String pairNumberJson = JsonParser.mapToJson(pairNumbers);
         rabbitTemplate.send(RabbitMqDirectConfiguration.MATH_EXCHANGE, RabbitMqDirectConfiguration.ADD_QUEUE_NAME, new Message(pairNumberJson.getBytes()));
@@ -80,7 +80,7 @@ public class DirectService {
      * The following method is used to send a pair of random numbers to RabbitMq to perform the subtract calculation
      * Parameters logic is the same as the previous method
      */
-    public void sendToSubtract(PairRandomNumbers pairNumbers) {
+    public void sendToSubtract(RandomNumberPair pairNumbers) {
         System.out.println(String.format("%s is sent to Calculator Service with routing key: %s to subtract values", pairNumbers.toString(), RabbitMqDirectConfiguration.SUBTRACT_QUEUE_NAME));
         String pairNumberJson = JsonParser.mapToJson(pairNumbers);
         rabbitTemplate.send(RabbitMqDirectConfiguration.MATH_EXCHANGE, RabbitMqDirectConfiguration.SUBTRACT_QUEUE_NAME, new Message(pairNumberJson.getBytes()));
@@ -90,7 +90,7 @@ public class DirectService {
      * The following method is used to send a pair of random numbers to RabbitMq to perform the divide calculation
      * Parameters logic is the same as at the previous method
      */
-    public void sendToDivide(PairRandomNumbers pairNumbers) {
+    public void sendToDivide(RandomNumberPair pairNumbers) {
         System.out.println(String.format("%s is sent to Calculator Service with routing key: %s to divide values.", pairNumbers.toString(), RabbitMqDirectConfiguration.DIVIDE_QUEUE_NAME));
         String pairNumberJson = JsonParser.mapToJson(pairNumbers);
         rabbitTemplate.send(RabbitMqDirectConfiguration.MATH_EXCHANGE, RabbitMqDirectConfiguration.DIVIDE_QUEUE_NAME, new Message(pairNumberJson.getBytes()));
@@ -100,7 +100,7 @@ public class DirectService {
      * The following method is used to send a pair of random numbers to RabbitMq to perform the multiplicative calculation
      * Parameters logic is the same as at the previous method
      */
-    public void sendToMultiplication(PairRandomNumbers pairNumbers) {
+    public void sendToMultiplication(RandomNumberPair pairNumbers) {
         System.out.println(String.format("%s is sent to Calculator Service with routing key: %s to multiply values.", pairNumbers.toString(), RabbitMqDirectConfiguration.MULTIPLICATION_QUEUE_NAME));
         String pairNumberJson = JsonParser.mapToJson(pairNumbers);
         rabbitTemplate.send(RabbitMqDirectConfiguration.MATH_EXCHANGE, RabbitMqDirectConfiguration.MULTIPLICATION_QUEUE_NAME, new Message(pairNumberJson.getBytes()));
